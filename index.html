@@ -144,6 +144,88 @@
             50% { transform: scale(1.1); }
         }
 
+        /* CSS CHO POPUP (MODAL) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a0000 0%, #2d0000 100%);
+            border: 3px solid #FFD700;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #FFD700;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #FFD700;
+        }
+
+        .modal-title {
+            color: #FFD700;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .modal-desc {
+            color: #fff;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .modal-action-btn {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B0000;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+
         /* Quick Links Bar */
         .quick-links {
             display: flex;
@@ -572,7 +654,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <div class="header">
         <div class="header-main">
             <div class="logo">
@@ -589,20 +670,18 @@
     </div>
 
     <div class="container">
-        <!-- 3 BANNER NỔI BẬT -->
         <div class="hero-banners">
-            <div class="hero-banner" onclick="window.open('https://hq.wzqx.xyz/?inviteCode=45555616', '_blank')">
-                <img src="/mnt/user-data/https://ibb.co/5gfjX07F" alt="Xổ Số Trực Tuyến - Tỉ lệ ăn cực cao">
+            <div class="hero-banner" onclick="openBannerModal('https://i.ibb.co/wFxQZkvs/X-S.jpg', 'Xổ Số Trực Tuyến', 'Tỉ lệ ăn cực cao 1 ăn 99. Cập nhật kết quả 3 miền siêu tốc mỗi ngày. Tham gia ngay để nhận lộc lá!', 'https://hq.wzqx.xyz/?inviteCode=45555616')">
+                <img src="https://i.ibb.co/wFxQZkvs/X-S.jpg" alt="Xổ Số Trực Tuyến">
             </div>
-            <div class="hero-banner" onclick="window.open('https://hq.wzqx.xyz/?inviteCode=45555616', '_blank')">
-                <img src="/mnt/user-data/https://ibb.co/1JXVtbwc" alt="Cược Thể Thao - Bảo hiểm 100%">
+            <div class="hero-banner" onclick="openBannerModal('https://i.ibb.co/Cs9d3WTL/B-O-HI-M.jpg', 'Cược Thể Thao', 'Chương trình bảo hiểm cược thua 100% cực hot. An tâm đặt cược bóng đá và các môn thể thao yêu thích.', 'https://hq.wzqx.xyz/?inviteCode=45555616')">
+                <img src="https://i.ibb.co/Cs9d3WTL/B-O-HI-M.jpg" alt="Cược Thể Thao">
             </div>
-            <div class="hero-banner" onclick="window.open('https://hq.wzqx.xyz/?inviteCode=45555616', '_blank')">
-                <img src="/mnt/user-data/https://ibb.co/0pjc2dVM" alt="Điểm danh hàng tuần - Thưởng lên đến 38 triệu">
+            <div class="hero-banner" onclick="openBannerModal('https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg', 'Điểm Danh Hàng Tuần', 'Thưởng chuyên cần lên đến 38 triệu đồng. Chỉ cần đăng nhập điểm danh mỗi ngày để nhận quà khủng.', 'https://hq.wzqx.xyz/?inviteCode=45555616')">
+                <img src="https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg" alt="Điểm Danh Hàng Tuần">
             </div>
         </div>
 
-        <!-- Quick Links -->
         <div class="quick-links">
             <a href="#lottery" class="quick-link">🎰 Xổ Số 3 Miền</a>
             <a href="soi-keo.html" class="quick-link">⚽ Kèo HOT Hôm Nay</a>
@@ -610,9 +689,7 @@
             <a href="https://hq.wzqx.xyz/?inviteCode=45555616" class="quick-link" target="_blank">🎲 Đăng Ký QH88</a>
         </div>
 
-        <!-- Main Content -->
         <div class="content-grid">
-            <!-- Lottery Section -->
             <div class="lottery-section" id="lottery">
                 <div class="lottery-header">
                     <div class="lottery-title">🎰 KẾT QUẢ XỔ SỐ 3 MIỀN</div>
@@ -643,9 +720,7 @@
                 </iframe>
             </div>
 
-            <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Promo Banner - NẠP ĐẦU 300K TẶNG 168K -->
                 <div class="promo-banner-special">
                     <div class="promo-shine"></div>
                     <div class="promo-badge-top">🔥 SIÊU HOT 🔥</div>
@@ -663,7 +738,6 @@
                     </p>
                 </div>
 
-                <!-- Match Cards -->
                 <div class="sidebar-card">
                     <div class="sidebar-title">⚽ SOI KÈO HÔM NAY</div>
                     
@@ -699,12 +773,10 @@
                     </a>
                 </div>
 
-                <!-- QH88 Banner -->
                 <div class="banner-item" onclick="window.open('https://hq.wzqx.xyz/?inviteCode=45555616', '_blank')">
                     <img src="https://upload.qh089.com/p/20251210/lion/21/10335684/jpg/1765359976365.jpg" alt="QH88">
                 </div>
 
-                <!-- Affiliate Links -->
                 <div class="sidebar-card">
                     <div class="sidebar-title">🔗 LIÊN KẾT UY TÍN</div>
                     <a href="https://hq.wzqx.xyz/?inviteCode=45555616" class="promo-btn" style="display: block; margin-bottom: 15px;" target="_blank">
@@ -720,7 +792,6 @@
             </div>
         </div>
 
-        <!-- QH88 Game Banners -->
         <div class="sidebar-card" style="margin-bottom: 40px;">
             <div class="sidebar-title">🎮 SẢN PHẨM GAME ĐỈNH CAO</div>
             <div class="banner-grid">
@@ -740,7 +811,16 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <div id="bannerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeBannerModal()">&times;</span>
+            <img id="modalImg" class="modal-img" src="" alt="Banner">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDesc" class="modal-desc"></p>
+            <a id="modalLink" href="#" target="_blank" class="modal-action-btn">THAM GIA NGAY</a>
+        </div>
+    </div>
+
     <footer>
         <p style="font-size: 1.5em; font-weight: bold; color: #FFD700; margin-bottom: 15px;">
             🎰⚽ SOIKEO365.ONLINE
@@ -764,6 +844,27 @@
     </footer>
 
     <script>
+        // XỬ LÝ POPUP BANNER
+        function openBannerModal(imgSrc, title, desc, link) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalLink').href = link;
+            document.getElementById('bannerModal').style.display = 'flex';
+        }
+
+        function closeBannerModal() {
+            document.getElementById('bannerModal').style.display = 'none';
+        }
+
+        // Đóng khi click ra ngoài vùng popup
+        window.onclick = function(event) {
+            let modal = document.getElementById('bannerModal');
+            if (event.target == modal) {
+                closeBannerModal();
+            }
+        }
+
         // Switch lottery regions
         function switchRegion(region) {
             const iframe = document.getElementById('lottery-iframe');
@@ -783,9 +884,6 @@
         }
 
         console.log('✅ SoiKeo365 Website Ready!');
-        console.log('🎰 Xổ số tự động (Minh Ngọc API)');
-        console.log('⚽ Soi kèo chuyên nghiệp');
-        console.log('🎁 Khuyến mãi khủng');
     </script>
 </body>
 </html>
