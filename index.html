@@ -3,154 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoiKeo365 - Xổ Số Trực Tuyến & Soi Kèo Bóng Đá Uy Tín</title>
+    <title>SoiKeo365 - Xổ Số & Thể Thao</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background: #1a0000; color: #fff; min-height: 100vh; }
+        body { font-family: 'Arial', sans-serif; background: #1a0000; color: #fff; }
         
-        /* Header */
-        .header { background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 20px 0; box-shadow: 0 5px 30px rgba(220, 20, 60, 0.5); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid #FFD700; }
-        .header-main { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo-text { font-size: 2.5em; font-weight: 900; color: #FFD700; text-shadow: 3px 3px 6px rgba(0,0,0,0.8); }
-        .nav-btn { background: rgba(255,215,0,0.1); color: #FFD700; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; border: 2px solid #FFD700; transition: 0.3s; }
-        .nav-btn:hover { background: #FFD700; color: #8B0000; }
+        .header { background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%); padding: 15px 0; border-bottom: 3px solid #FFD700; position: sticky; top: 0; z-index: 1000; }
+        .header-main { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-text { font-size: 2.2em; font-weight: 900; color: #FFD700; text-shadow: 2px 2px 4px #000; }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
-        /* BỐ CỤC BANNER: 2 BANNER CHÍNH BẰNG NHAU & 1 BANNER KHUYẾN MÃI GÓC */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .main-banners {
+        /* BỐ CỤC 3 BANNER VUÔNG THEO HÌNH MẪU CỦA BẠN */
+        .hero-banners {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .hero-banner {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #FFD700;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            background: #000;
+            aspect-ratio: 1 / 1; /* Giữ tỉ lệ vuông chuẩn như ảnh bạn gửi */
+        }
+        .hero-banner:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(255,215,0,0.6); }
+        .hero-banner img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: top; /* Quan trọng: Giúp ảnh thể thao chỉ hiện phần đầu ở ngoài */
+            display: block; 
+        }
+        
+        .badge-hot {
+            position: absolute; top: 10px; right: 10px; background: red; color: white;
+            padding: 5px 12px; border-radius: 12px; font-size: 0.8em; font-weight: bold; z-index: 2;
         }
 
-        .promo-corner {
-            display: flex;
-            justify-content: flex-start; /* Để ở góc trái, hoặc đổi thành flex-end nếu muốn góc phải */
-        }
+        /* Nút đăng ký */
+        .quick-actions { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .btn-action { background: #8B0000; color: #FFD700; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; border: 2px solid #FFD700; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
 
-        .hero-banner { border-radius: 15px; overflow: hidden; border: 3px solid #FFD700; cursor: pointer; transition: 0.3s; position: relative; }
-        .hero-banner:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
-        
-        /* Kích thước banner chính giống lúc đầu */
-        .main-banners img { width: 100%; height: 320px; object-fit: cover; display: block; }
-        
-        /* Kích thước banner khuyến mãi ở góc (nhỏ hơn và rõ nét) */
-        .banner-promo-mini { width: 100%; max-width: 450px; border-color: #00FF00; } /* Màu xanh lá để nổi bật khuyến mãi */
-        .banner-promo-mini img { width: 100%; height: 150px; object-fit: cover; display: block; }
+        /* Grid nội dung chính */
+        .main-content { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .lottery-box { border: 2px solid #FFD700; border-radius: 10px; background: #fff; overflow: hidden; }
+        .sidebar-card { background: #2d0000; border: 2px solid #FFD700; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
 
-        /* POPUP XEM ẢNH FULL */
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 10px; }
+        /* POPUP XEM CHI TIẾT - FIX LỖI ẢNH DÀI */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 10px; }
         .modal-content { 
             background: #1a0000; border: 2px solid #FFD700; border-radius: 15px; 
-            max-width: 650px; width: 100%; max-height: 95vh; 
-            overflow-y: auto; padding: 20px; text-align: center; position: relative; 
+            max-width: 550px; width: 100%; max-height: 90vh; 
+            position: relative; padding: 20px; text-align: center; 
+            overflow-y: auto; /* Cho phép cuộn để xem hết bảng thưởng */
         }
-        .close-btn { position: absolute; top: 5px; right: 15px; color: #FFD700; font-size: 40px; cursor: pointer; z-index: 10; }
-        .modal-img { width: 100%; border-radius: 10px; margin-top: 10px; }
-        .modal-btn { 
-            background: linear-gradient(135deg, #FFD700, #FFA500); color: #8B0000; 
-            padding: 15px 40px; border-radius: 30px; text-decoration: none; 
-            font-weight: bold; font-size: 1.2em; display: inline-block; margin-top: 20px; 
-        }
-
-        /* Content Grid */
-        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
-        .lottery-section { background: #1a0000; border-radius: 15px; border: 2px solid #FFD700; overflow: hidden; }
-        .lottery-iframe { width: 100%; height: 1500px; border: none; background: white; }
-        .sidebar-card { background: #2d0000; border-radius: 15px; padding: 20px; border: 2px solid #FFD700; margin-bottom: 20px; }
-        .match-card { background: rgba(139,0,0,0.3); border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid #DC143C; }
+        .close-btn { position: absolute; top: 5px; right: 15px; color: #FFD700; font-size: 40px; cursor: pointer; }
+        .modal-img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
+        .btn-join { background: linear-gradient(to bottom, #FFD700, #FFA500); color: #8B0000; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 1.1em; }
 
         @media (max-width: 768px) {
-            .main-banners { grid-template-columns: 1fr; }
-            .promo-corner { justify-content: center; }
-            .banner-promo-mini { max-width: 100%; }
+            .hero-banners { grid-template-columns: 1fr; }
+            .main-content { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="header-main">
             <div class="logo-text">SOIKEO365</div>
             <div class="nav-menu">
-                <a href="index.html" class="nav-btn">🏠 Trang Chủ</a>
-                <a href="https://t.me/HUYMASTERQH88" class="nav-btn" target="_blank">💬 Telegram</a>
+                <a href="https://t.me/HUYMASTERQH88" class="nav-btn" target="_blank">Telegram</a>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="hero-section">
-            <div class="main-banners">
-                <div class="hero-banner" onclick="openFullImg('https://i.ibb.co/wFxQZkvs/X-S.jpg', 'XỔ SỐ TRỰC TUYẾN')">
-                    <img src="https://i.ibb.co/wFxQZkvs/X-S.jpg" alt="Xổ Số">
-                </div>
-                <div class="hero-banner" onclick="openFullImg('https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg', 'ĐIỂM DANH NHẬN THƯỞNG')">
-                    <img src="https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg" alt="Điểm Danh">
-                </div>
+        <div class="hero-banners">
+            <div class="hero-banner" onclick="openPromo('https://i.ibb.co/wFxQZkvs/X-S.jpg', 'Xổ Số Trực Tuyến 1 Ăn 99.7')">
+                <span class="badge-hot">HOT</span>
+                <img src="https://i.ibb.co/wFxQZkvs/X-S.jpg">
             </div>
 
-            <div class="promo-corner">
-                <div class="hero-banner banner-promo-mini" onclick="openFullImg('https://i.ibb.co/G1hsTNN/image.png', 'BẢO HIỂM THỂ THAO 100%')">
-                    <img src="https://i.ibb.co/G1hsTNN/image.png" alt="Bảo Hiểm Thể Thao">
-                    <div style="background: rgba(0,0,0,0.7); color: #00FF00; padding: 5px; text-align: center; font-weight: bold; font-size: 0.9em;">
-                        NHẤN ĐỂ XEM CHI TIẾT KHUYẾN MÃI 100%
-                    </div>
-                </div>
+            <div class="hero-banner" onclick="openPromo('https://i.ibb.co/G1hsTNN/image.png', 'Bảo Hiểm Thể Thao 100%')">
+                <span class="badge-hot">HOT</span>
+                <img src="https://i.ibb.co/G1hsTNN/image.png">
+            </div>
+
+            <div class="hero-banner" onclick="openPromo('https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg', 'Điểm Danh Nhận 38.880.000 VNĐ')">
+                <span class="badge-hot">HOT</span>
+                <img src="https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg">
             </div>
         </div>
 
-        <div class="content-grid">
-            <div class="lottery-section">
-                <div style="background:#8B0000; padding:15px; text-align:center; color:#FFD700; font-weight:bold;">KẾT QUẢ XỔ SỐ</div>
-                <iframe class="lottery-iframe" src="https://www.minhngoc.net.vn/free/index.php"></iframe>
-            </div>
+        <div class="quick-actions">
+            <a href="https://hq.wzqx.xyz/?inviteCode=45555616" class="btn-action">🎰 Đăng Ký Chơi Xổ Số</a>
+            <a href="https://hq.wzqx.xyz/?inviteCode=45555616" class="btn-action">⚽ Nhận Bảo Hiểm 2 Triệu</a>
+        </div>
 
+        <div class="main-content">
+            <div class="lottery-box">
+                <iframe src="https://www.minhngoc.net.vn/free/index.php" width="100%" height="1500px" frameborder="0"></iframe>
+            </div>
             <div class="sidebar">
                 <div class="sidebar-card">
-                    <h3 style="color:#FFD700; text-align:center; margin-bottom:15px;">⚽ SOI KÈO HOT</h3>
-                    <div class="match-card">
-                        <div style="font-weight:bold;">Man United vs Liverpool</div>
-                        <div style="color:#FFA500;">🎯 Liverpool -0.5</div>
+                    <h3 style="color:#FFD700; margin-bottom:15px; border-bottom: 2px solid #FFD700; padding-bottom:5px;">⚽ SOI KÈO HÔM NAY</h3>
+                    <div style="margin-bottom:15px;">
+                        <p style="font-weight:bold;">Man United vs Liverpool</p>
+                        <p style="color:#FFA500;">🎯 Chốt: Liverpool -0.5</p>
                     </div>
-                    <div class="match-card">
-                        <div style="font-weight:bold;">Real Madrid vs Barcelona</div>
-                        <div style="color:#FFA500;">🎯 Tài 3.0</div>
+                    <div>
+                        <p style="font-weight:bold;">Real Madrid vs Barca</p>
+                        <p style="color:#FFA500;">🎯 Chốt: Tài 3.0</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="imgModal" class="modal">
+    <div id="promoModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeFullImg()">&times;</span>
-            <h2 id="m-title" style="color:#FFD700; margin-bottom:10px; font-size: 1.3em;"></h2>
-            <img id="m-img" class="modal-img" src="">
-            <a href="https://hq.wzqx.xyz/?inviteCode=45555616" target="_blank" class="modal-btn">THAM GIA NHẬN THƯỞNG</a>
+            <span class="close-btn" onclick="closePromo()">&times;</span>
+            <h2 id="modalTitle" style="color:#FFD700; margin-bottom:15px; font-size: 1.4em;"></h2>
+            <img id="modalImg" class="modal-img" src="">
+            <a href="https://hq.wzqx.xyz/?inviteCode=45555616" class="btn-join" target="_blank">THAM GIA NGAY</a>
         </div>
     </div>
 
     <script>
-        function openFullImg(url, title) {
-            document.getElementById('m-img').src = url;
-            document.getElementById('m-title').innerText = title;
-            document.getElementById('imgModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        function openPromo(imgUrl, title) {
+            document.getElementById('modalImg').src = imgUrl;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('promoModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Khóa trang ngoài khi xem ảnh
         }
-        function closeFullImg() {
-            document.getElementById('imgModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        function closePromo() {
+            document.getElementById('promoModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Mở lại cuộn trang
         }
         window.onclick = function(event) {
-            if (event.target == document.getElementById('imgModal')) closeFullImg();
+            if (event.target == document.getElementById('promoModal')) closePromo();
         }
     </script>
 </body>
