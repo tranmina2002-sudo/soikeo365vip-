@@ -17,24 +17,34 @@
 
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-        /* BỐ CỤC BANNER: 1 TO TRÊN, 2 NHỎ DƯỚI */
-        .hero-banners {
-            display: grid;
-            grid-template-areas: 
-                "top top"
-                "left right";
-            gap: 15px;
+        /* BỐ CỤC BANNER: 2 BANNER CHÍNH BẰNG NHAU & 1 BANNER KHUYẾN MÃI GÓC */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             margin: 25px 0;
         }
+
+        .main-banners {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .promo-corner {
+            display: flex;
+            justify-content: flex-start; /* Để ở góc trái, hoặc đổi thành flex-end nếu muốn góc phải */
+        }
+
         .hero-banner { border-radius: 15px; overflow: hidden; border: 3px solid #FFD700; cursor: pointer; transition: 0.3s; position: relative; }
-        .hero-banner:hover { transform: scale(1.01); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+        .hero-banner:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
         
-        .banner-top { grid-area: top; }
-        .banner-top img { width: 100%; height: 250px; object-fit: cover; object-position: center; display: block; }
+        /* Kích thước banner chính giống lúc đầu */
+        .main-banners img { width: 100%; height: 320px; object-fit: cover; display: block; }
         
-        .banner-left { grid-area: left; }
-        .banner-right { grid-area: right; }
-        .banner-left img, .banner-right img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        /* Kích thước banner khuyến mãi ở góc (nhỏ hơn và rõ nét) */
+        .banner-promo-mini { width: 100%; max-width: 450px; border-color: #00FF00; } /* Màu xanh lá để nổi bật khuyến mãi */
+        .banner-promo-mini img { width: 100%; height: 150px; object-fit: cover; display: block; }
 
         /* POPUP XEM ẢNH FULL */
         .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 10px; }
@@ -51,9 +61,7 @@
             font-weight: bold; font-size: 1.2em; display: inline-block; margin-top: 20px; 
         }
 
-        /* Các phần Content khác */
-        .quick-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-        .quick-link { background: #8B0000; color: #FFD700; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; border: 2px solid #FFD700; }
+        /* Content Grid */
         .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
         .lottery-section { background: #1a0000; border-radius: 15px; border: 2px solid #FFD700; overflow: hidden; }
         .lottery-iframe { width: 100%; height: 1500px; border: none; background: white; }
@@ -61,9 +69,9 @@
         .match-card { background: rgba(139,0,0,0.3); border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid #DC143C; }
 
         @media (max-width: 768px) {
-            .content-grid { grid-template-columns: 1fr; }
-            .hero-banners { grid-template-areas: "top" "left" "right"; }
-            .banner-top img, .banner-left img, .banner-right img { height: 150px; }
+            .main-banners { grid-template-columns: 1fr; }
+            .promo-corner { justify-content: center; }
+            .banner-promo-mini { max-width: 100%; }
         }
     </style>
 </head>
@@ -79,27 +87,28 @@
     </div>
 
     <div class="container">
-        <div class="hero-banners">
-            <div class="hero-banner banner-top" onclick="openFullImg('https://i.ibb.co/G1hsTNN/image.png', 'BẢO HIỂM THỂ THAO 100%')">
-                <img src="https://i.ibb.co/G1hsTNN/image.png" alt="Bảo Hiểm Thể Thao">
+        <div class="hero-section">
+            <div class="main-banners">
+                <div class="hero-banner" onclick="openFullImg('https://i.ibb.co/wFxQZkvs/X-S.jpg', 'XỔ SỐ TRỰC TUYẾN')">
+                    <img src="https://i.ibb.co/wFxQZkvs/X-S.jpg" alt="Xổ Số">
+                </div>
+                <div class="hero-banner" onclick="openFullImg('https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg', 'ĐIỂM DANH NHẬN THƯỞNG')">
+                    <img src="https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg" alt="Điểm Danh">
+                </div>
             </div>
 
-            <div class="hero-banner banner-left" onclick="openFullImg('https://i.ibb.co/wFxQZkvs/X-S.jpg', 'XỔ SỐ TRỰC TUYẾN')">
-                <img src="https://i.ibb.co/wFxQZkvs/X-S.jpg" alt="Xổ Số">
+            <div class="promo-corner">
+                <div class="hero-banner banner-promo-mini" onclick="openFullImg('https://i.ibb.co/G1hsTNN/image.png', 'BẢO HIỂM THỂ THAO 100%')">
+                    <img src="https://i.ibb.co/G1hsTNN/image.png" alt="Bảo Hiểm Thể Thao">
+                    <div style="background: rgba(0,0,0,0.7); color: #00FF00; padding: 5px; text-align: center; font-weight: bold; font-size: 0.9em;">
+                        NHẤN ĐỂ XEM CHI TIẾT KHUYẾN MÃI 100%
+                    </div>
+                </div>
             </div>
-
-            <div class="hero-banner banner-right" onclick="openFullImg('https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg', 'ĐIỂM DANH NHẬN THƯỞNG')">
-                <img src="https://i.ibb.co/HLDV4kpz/I-M-DANH.jpg" alt="Điểm Danh">
-            </div>
-        </div>
-
-        <div class="quick-links">
-            <a href="#lottery" class="quick-link">🎰 Xổ Số 3 Miền</a>
-            <a href="https://hq.wzqx.xyz/?inviteCode=45555616" class="quick-link" target="_blank">🎲 Đăng Ký QH88</a>
         </div>
 
         <div class="content-grid">
-            <div class="lottery-section" id="lottery">
+            <div class="lottery-section">
                 <div style="background:#8B0000; padding:15px; text-align:center; color:#FFD700; font-weight:bold;">KẾT QUẢ XỔ SỐ</div>
                 <iframe class="lottery-iframe" src="https://www.minhngoc.net.vn/free/index.php"></iframe>
             </div>
@@ -108,12 +117,10 @@
                 <div class="sidebar-card">
                     <h3 style="color:#FFD700; text-align:center; margin-bottom:15px;">⚽ SOI KÈO HOT</h3>
                     <div class="match-card">
-                        <div style="color:#FFD700; font-size:0.8em;">Premier League</div>
                         <div style="font-weight:bold;">Man United vs Liverpool</div>
                         <div style="color:#FFA500;">🎯 Liverpool -0.5</div>
                     </div>
                     <div class="match-card">
-                        <div style="color:#FFD700; font-size:0.8em;">La Liga</div>
                         <div style="font-weight:bold;">Real Madrid vs Barcelona</div>
                         <div style="color:#FFA500;">🎯 Tài 3.0</div>
                     </div>
@@ -136,11 +143,11 @@
             document.getElementById('m-img').src = url;
             document.getElementById('m-title').innerText = title;
             document.getElementById('imgModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang ngoài khi đang xem ảnh
+            document.body.style.overflow = 'hidden';
         }
         function closeFullImg() {
             document.getElementById('imgModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Cho phép cuộn lại
+            document.body.style.overflow = 'auto';
         }
         window.onclick = function(event) {
             if (event.target == document.getElementById('imgModal')) closeFullImg();
