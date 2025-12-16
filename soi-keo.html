@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soi Kèo Bóng Đá - SoiKeo365</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background: #1a0000;
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        /* Header - Same as index */
+        .header {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            padding: 20px 0;
+            box-shadow: 0 5px 30px rgba(220, 20, 60, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid #FFD700;
+        }
+
+        .header-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 3em;
+            animation: spin-ball 3s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255,215,0,0.8));
+        }
+
+        @keyframes spin-ball {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,215,0,0.1);
+            color: #FFD700;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #FFD700;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B0000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.5);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Page Title */
+        .page-title {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 3px solid #FFD700;
+            box-shadow: 0 10px 40px rgba(255,215,0,0.3);
+        }
+
+        .page-title h1 {
+            font-size: 2.5em;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #fff;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: linear-gradient(135deg, #1a0000 0%, #2d0000 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 2px solid #FFD700;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .admin-title {
+            font-size: 1.8em;
+            color: #FFD700;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #FFD700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(139,0,0,0.3);
+            border: 2px solid #DC143C;
+            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(220,20,60,0.3);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B0000;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.7);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #FF0000 0%, #DC143C 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #666 0%, #888 100%);
+            color: white;
+        }
+
+        /* Matches Grid */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .match-card {
+            background: linear-gradient(135deg, #1a0000 0%, #2d0000 100%);
+            border-radius: 20px;
+            padding: 25px;
+            border: 2px solid #DC143C;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .match-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255,215,0,0.3);
+            border-color: #FFD700;
+        }
+
+        .match-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .match-badge.mega-hot {
+            background: linear-gradient(135deg, #FF0000 0%, #FF6347 100%);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .match-badge.hot {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B0000;
+        }
+
+        .match-badge.normal {
+            background: linear-gradient(135deg, #666 0%, #888 100%);
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .match-header {
+            margin-bottom: 15px;
+        }
+
+        .match-league {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .match-time {
+            color: #FFA500;
+            font-size: 0.9em;
+        }
+
+        .match-teams {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .team-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+            margin: 8px 0;
+        }
+
+        .vs {
+            color: #DC143C;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .match-prediction {
+            background: rgba(255,215,0,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+            margin-bottom: 15px;
+        }
+
+        .prediction-label {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .prediction-value {
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .match-confidence {
+            text-align: center;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .match-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .match-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .edit-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #FF0000 0%, #DC143C 100%);
+            color: white;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(139,0,0,0.2);
+            border-radius: 20px;
+            border: 2px dashed #DC143C;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            color: #FFD700;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .empty-state-subtext {
+            color: #FFA500;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #000 0%, #1a0000 100%);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 3px solid #FFD700;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-main {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 1.8em;
+            }
+
+            .page-title h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-main">
+            <div class="logo">
+                <span class="logo-icon">⚽</span>
+                <span class="logo-text">SOIKEO365</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-btn">🏠 Trang Chủ</a>
+                <a href="soi-keo.html" class="nav-btn active">⚽ Soi Kèo</a>
+                <a href="khuyen-mai.html" class="nav-btn">🎁 Khuyến Mãi</a>
+                <a href="https://t.me/HUYMASTERQH88" class="nav-btn" target="_blank">💬 Telegram</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>⚽ SOI KÈO BÓNG ĐÁ</h1>
+            <p>Phân tích chuyên nghiệp - Tỷ lệ chính xác cao</p>
+        </div>
+
+        <!-- Admin Panel - Form thêm kèo nhanh -->
+        <div class="admin-panel">
+            <div class="admin-title">➕ THÊM KÈO NHANH</div>
+            
+            <form id="matchForm" onsubmit="addMatch(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>🏆 Giải đấu *</label>
+                        <input type="text" id="league" placeholder="VD: Premier League" required>
+                    </div>
+                    <div class="form-group">
+                        <label>⏰ Thời gian *</label>
+                        <input type="text" id="matchTime" placeholder="VD: 22:00, 17/12/2024" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🔥 Độ HOT *</label>
+                        <select id="hotLevel" required>
+                            <option value="mega-hot">🔥 MEGA HOT</option>
+                            <option value="hot">⭐ HOT</option>
+                            <option value="normal">✅ THƯỜNG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>⚽ Đội nhà *</label>
+                        <input type="text" id="homeTeam" placeholder="VD: Man United" required>
+                    </div>
+                    <div class="form-group">
+                        <label>⚽ Đội khách *</label>
+                        <input type="text" id="awayTeam" placeholder="VD: Liverpool" required>
+                    </div>
+                    <div class="form-group">
+                        <label>📊 Độ tin cậy (%) *</label>
+                        <input type="number" id="confidence" placeholder="VD: 85" min="0" max="100" required>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>🎯 Dự đoán & Phân tích *</label>
+                        <textarea id="prediction" placeholder="VD: Liverpool -0.5 • TÀI 2.5 • Tỷ số: 1-2&#10;&#10;Phân tích: Liverpool đang có phong độ rất cao..." required></textarea>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button type="submit" class="btn">➕ THÊM KÈO</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">🔄 RESET</button>
+                    <button type="button" class="btn btn-danger" onclick="clearAllMatches()">🗑️ XÓA TẤT CẢ</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Matches Display -->
+        <div id="matchesContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.5em; font-weight: bold; color: #FFD700; margin-bottom: 15px;">
+            🎰⚽ SOIKEO365.ONLINE
+        </p>
+        <p style="opacity: 0.9; margin-bottom: 20px;">
+            Soi Kèo Chính Xác • Phân Tích Chuyên Nghiệp • Win Rate Cao
+        </p>
+        <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.6;">
+            ⚠️ Chơi có trách nhiệm. Chỉ dành cho người từ 18 tuổi trở lên.
+        </p>
+        <p style="margin-top: 10px; font-size: 0.85em; opacity: 0.5;">
+            © 2024 SoiKeo365.Online. All rights reserved.
+        </p>
+    </footer>
+
+    <script>
+        // Load matches from localStorage
+        function loadMatches() {
+            const matches = JSON.parse(localStorage.getItem('matches')) || [];
+            displayMatches(matches);
+        }
+
+        // Display matches
+        function displayMatches(matches) {
+            const container = document.getElementById('matchesContainer');
+            
+            if (matches.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚽</div>
+                        <div class="empty-state-text">Chưa có kèo nào</div>
+                        <div class="empty-state-subtext">Sử dụng form bên trên để thêm kèo mới</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '<div class="matches-grid">' + matches.map((match, index) => `
+                <div class="match-card">
+                    <div class="match-badge ${match.hotLevel}">
+                        ${match.hotLevel === 'mega-hot' ? '🔥 MEGA HOT' : match.hotLevel === 'hot' ? '⭐ HOT' : '✅ THƯỜNG'}
+                    </div>
+                    
+                    <div class="match-header">
+                        <div class="match-league">🏆 ${match.league}</div>
+                        <div class="match-time">⏰ ${match.matchTime}</div>
+                    </div>
+                    
+                    <div class="match-teams">
+                        <div class="team-name">${match.homeTeam}</div>
+                        <div class="vs">VS</div>
+                        <div class="team-name">${match.awayTeam}</div>
+                    </div>
+                    
+                    <div class="match-prediction">
+                        <div class="prediction-label">🎯 Dự đoán & Phân tích:</div>
+                        <div class="prediction-value">${match.prediction.replace(/\n/g, '<br>')}</div>
+                    </div>
+                    
+                    <div class="match-confidence">
+                        ✅ Độ tin cậy: ${match.confidence}%
+                    </div>
+                    
+                    <div class="match-actions">
+                        <button class="edit-btn" onclick="editMatch(${index})">✏️ SỬA</button>
+                        <button class="delete-btn" onclick="deleteMatch(${index})">🗑️ XÓA</button>
+                    </div>
+                </div>
+            `).join('') + '</div>';
+        }
+
+        // Add new match
+        function addMatch(event) {
+            event.preventDefault();
+            
+            const match = {
+                league: document.getElementById('league').value,
+                matchTime: document.getElementById('matchTime').value,
+                hotLevel: document.getElementById('hotLevel').value,
+                homeTeam: document.getElementById('homeTeam').value,
+                awayTeam: document.getElementById('awayTeam').value,
+                confidence: document.getElementById('confidence').value,
+                prediction: document.getElementById('prediction').value,
+                timestamp: new Date().getTime()
+            };
+            
+            const matches = JSON.parse(localStorage.getItem('matches')) || [];
+            
+            // Check if editing
+            const editIndex = document.getElementById('matchForm').dataset.editIndex;
+            if (editIndex !== undefined) {
+                matches[editIndex] = match;
+                delete document.getElementById('matchForm').dataset.editIndex;
+            } else {
+                matches.unshift(match); // Add to beginning
+            }
+            
+            localStorage.setItem('matches', JSON.stringify(matches));
+            resetForm();
+            loadMatches();
+            
+            alert('✅ Đã thêm kèo thành công!');
+        }
+
+        // Edit match
+        function editMatch(index) {
+            const matches = JSON.parse(localStorage.getItem('matches')) || [];
+            const match = matches[index];
+            
+            document.getElementById('league').value = match.league;
+            document.getElementById('matchTime').value = match.matchTime;
+            document.getElementById('hotLevel').value = match.hotLevel;
+            document.getElementById('homeTeam').value = match.homeTeam;
+            document.getElementById('awayTeam').value = match.awayTeam;
+            document.getElementById('confidence').value = match.confidence;
+            document.getElementById('prediction').value = match.prediction;
+            
+            document.getElementById('matchForm').dataset.editIndex = index;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Delete match
+        function deleteMatch(index) {
+            if (confirm('❌ Bạn có chắc muốn xóa kèo này?')) {
+                const matches = JSON.parse(localStorage.getItem('matches')) || [];
+                matches.splice(index, 1);
+                localStorage.setItem('matches', JSON.stringify(matches));
+                loadMatches();
+            }
+        }
+
+        // Clear all matches
+        function clearAllMatches() {
+            if (confirm('⚠️ XÓA TẤT CẢ KÈO? Hành động này không thể hoàn tác!')) {
+                localStorage.removeItem('matches');
+                loadMatches();
+                alert('✅ Đã xóa tất cả kèo!');
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('matchForm').reset();
+            delete document.getElementById('matchForm').dataset.editIndex;
+        }
+
+        // Load matches on page load
+        loadMatches();
+
+        console.log('✅ Soi Kèo Page Ready!');
+        console.log('📝 Form nhập kèo nhanh');
+        console.log('💾 Lưu trữ tự động (localStorage)');
+    </script>
+</body>
+</html>
