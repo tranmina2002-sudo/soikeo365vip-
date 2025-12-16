@@ -1,0 +1,46 @@
+# Robots.txt for SoiKeo365.online
+# Tối ưu cho Google và các search engines
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /soi-keo.html
+Allow: /khuyen-mai.html
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /*.php$
+
+# Sitemap location
+Sitemap: https://www.soikeo365.online/sitemap.xml
+
+# Crawl delay (optional, 1 second between requests)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Crawl-delay: 10
